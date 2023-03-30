@@ -8,22 +8,18 @@ const User = require('./../models/User.model.js')
 
 router.post('/signup', async (req, res, next) => {
   const { username, email, password } = req.body
-
   if (!username || !email || !password) {
     return res
       .status(400)
       .json({ message: 'お名前、メールアドレス、パスワードを入力してください' })
   }
-
   try {
     const foundUser = await User.findOne({ username: username })
     if (foundUser) {
       return res.status(400).json({ message: 'ユーザーは既に登録されています' })
     }
-
     const generatedSalt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, generatedSalt)
-
     await User.create({
       username,
       email,

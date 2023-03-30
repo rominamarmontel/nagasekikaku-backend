@@ -18,7 +18,7 @@ const productSchema = new Schema(
     category: {
       type: String,
       required: true,
-      enum: ['Furniture', 'Table-ware', 'Art & Decoration', 'Etc'],
+      enum: ['家具', '食器', '美術品', '雑貨'],
     },
     description: {
       type: String,
@@ -28,6 +28,15 @@ const productSchema = new Schema(
       type: Number,
       required: true,
       default: 0,
+    },
+    countInStock: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    updatedAt: {
+      type: Date,
+      default: Date.now,
     },
   },
   {

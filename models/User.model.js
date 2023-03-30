@@ -1,6 +1,5 @@
 const { Schema, model } = require('mongoose')
 
-// TODO: Please make sure you edit the User model to whatever makes sense in this case
 const userSchema = new Schema(
   {
     username: {
@@ -25,21 +24,13 @@ const userSchema = new Schema(
     isAdmin: {
       type: Boolean,
       required: true,
-      defaule: false,
-    },
-    mobile: {
-      type: Number,
-      required: true,
-      default: 0,
+      default: false,
     },
     shippingAddress: {
       address: String,
       city: String,
       postalCode: String,
       country: String,
-      shippingPhone: {
-        type: Number,
-      },
     },
   },
   {
