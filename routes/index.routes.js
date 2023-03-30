@@ -10,6 +10,7 @@ router.use('/products', require('./product.routes'))
 router.use('/topics', require('./topic.routes'))
 router.use('/user', require('./user.routes'))
 router.use('/orders', require('./order.routes'))
+router.use('/cart', require('./cart.routes'))
 
 router.use((error, req, res, next) => {
   console.error(error.stack)

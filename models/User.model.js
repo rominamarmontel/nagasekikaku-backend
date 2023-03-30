@@ -30,7 +30,9 @@ const userSchema = new Schema(
       address: String,
       city: String,
       postalCode: String,
-      country: String,
+      phoneNumber: {
+        type: Number,
+      },
     },
   },
   {

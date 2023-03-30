@@ -23,10 +23,8 @@ const orderSchema = new Schema({
     address: String,
     city: String,
     postalCode: String,
-    country: String,
     phoneNumber: {
       type: Number,
-      required: true,
     },
   },
   paymentMethod: {
