@@ -27,9 +27,12 @@ const userSchema = new Schema(
       default: false,
     },
     shippingAddress: {
-      address: String,
-      city: String,
       postalCode: String,
+      prefecture: String,
+      city: String,
+      town: String,
+      addressA: String,
+      addressB: String,
       phoneNumber: {
         type: Number,
       },

@@ -18,13 +18,13 @@ router.get('/profile', isAuthenticated, async (req, res, next) => {
 // @access private, isAdmin
 router.patch('/edit', isAuthenticated, async (req, res, next) => {
   try {
-    const { username, email, password, shippingAddress, mobile } = req.body
-    const updateUser = await User.findByIdAndUpdate(
-      req.params.id,
-      { username, email, password, shippingAddress, mobile },
+    const { username, email, password, shippingAddress } = req.body
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user.id,
+      { username, email, password, shippingAddress },
       { new: true }
     )
-    res.status(200).json(updateUser)
+    res.status(200).json(updatedUser)
   } catch (error) {
     next(error)
   }
