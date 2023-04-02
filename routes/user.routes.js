@@ -2,6 +2,15 @@ const router = require('express').Router()
 const User = require('../models/User.model.js')
 const isAuthenticated = require('../middlewares/isAuthenticated.js')
 
+router.get('/users-list', isAuthenticated, async (req, res, next) => {
+  try {
+    const allUsers = await User.find()
+    res.json(allUsers)
+  } catch (error) {
+    next(error)
+  }
+})
+
 // @desc   Get user profile
 // @route  GET /api/profile
 // @access private, isAdmin
