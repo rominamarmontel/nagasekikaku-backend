@@ -8,7 +8,7 @@ const isAuthenticated = require('../middlewares/isAuthenticated')
 router.get('/', isAuthenticated, async (req, res, next) => {
   try {
     const allOrders = await Order.find({ user: req.user.id })
-    req.json(allOrders)
+    res.json(allOrders)
   } catch (error) {
     next(error)
   }

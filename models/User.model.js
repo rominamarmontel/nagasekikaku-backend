@@ -33,9 +33,7 @@ const userSchema = new Schema(
       town: String,
       addressA: String,
       addressB: String,
-      phoneNumber: {
-        type: Number,
-      },
+      phoneNumber: String,
     },
   },
   {

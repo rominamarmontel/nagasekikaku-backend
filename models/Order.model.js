@@ -20,12 +20,9 @@ const orderSchema = new Schema({
     },
   ],
   shippingAddress: {
-    address: String,
-    city: String,
-    postalCode: String,
-    phoneNumber: {
-      type: Number,
-    },
+    type: Schema.Types.ObjectId,
+    required: false,
+    ref: 'User',
   },
   paymentMethod: {
     type: String,
