@@ -27,6 +27,30 @@ router.get('/', isAuthenticated, async (req, res) => {
   }
 })
 
+// Get a payment
+router.get('/payment', isAuthenticated, async (req, res, next) => {
+  try {
+    const cartItems = await Order.find({
+      user: req.user.id,
+      purchaseDate: { $exists: false },
+      paymentMethod: { $exists: true },
+    }).populate('orderItems.product')
+    if (cartItems.length === 0) {
+      res.json({ message: 'カートは空です' })
+    } else {
+      const cart = cartItems[0].orderItems.map((item) => {
+        return {
+          qty: item.qty,
+          product: item.product,
+        }
+      })
+      res.json(cart)
+    }
+  } catch (error) {
+    console.log(error)
+  }
+})
+
 // Create a cart with product in it
 router.post('/add', isAuthenticated, async (req, res) => {
   try {
@@ -79,6 +103,26 @@ router.post('/add', isAuthenticated, async (req, res) => {
     res.status(500).send('something went wrong')
   }
 })
+
+// router.post('/addPayment', isAuthenticated, async (req, res) => {
+//   try {
+//     const { paymentMethod } = req.body
+//     const orderpayment = { paymentMethod }
+
+//     let isPayment = await Order.findOne({
+//       user: req.user.id,
+//       purchaseDate: { $exists: false },
+//       paymentMethod: { $exists: false },
+//     })
+//     const createPayment = await Order.create({
+//       paymentMethod,
+//     })
+//     return res.status(201).send(isPayment)
+//   } catch (error) {
+//     console.log(error)
+//     res.status(500).send('something went wrong')
+//   }
+// })
 
 // Remove a product from the cart
 router.delete('/remove/:productId', isAuthenticated, async (req, res) => {
