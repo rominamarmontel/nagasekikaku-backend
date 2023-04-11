@@ -1,51 +1,56 @@
 const { Schema, model } = require('mongoose')
 
-const orderSchema = new Schema({
-  user: {
-    type: Schema.Types.ObjectId,
-    required: true,
-    ref: 'User',
-  },
-  orderItems: [
-    {
-      qty: {
-        type: Number,
-        required: true,
-      },
-      product: {
-        type: Schema.Types.ObjectId,
-        required: true,
-        ref: 'Product',
-      },
+const orderSchema = new Schema(
+  {
+    user: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
     },
-  ],
-  shippingAddress: {
-    type: Schema.Types.ObjectId,
-    required: false,
-    ref: 'User',
+    orderItems: [
+      {
+        qty: {
+          type: Number,
+          required: true,
+        },
+        product: {
+          type: Schema.Types.ObjectId,
+          required: true,
+          ref: 'Product',
+        },
+      },
+    ],
+    shippingAddress: {
+      type: Schema.Types.ObjectId,
+      required: false,
+      ref: 'User',
+    },
+    paymentMethod: {
+      type: String,
+    },
+    purchaseDate: {
+      type: Date,
+    },
+    taxPrice: {
+      type: Number,
+      default: 0.0,
+    },
+    shippingPrice: {
+      type: Number,
+      default: 0.0,
+    },
+    isDelivered: {
+      type: Boolean,
+      default: false,
+    },
+    deliveredAt: {
+      type: Date,
+    },
   },
-  paymentMethod: {
-    type: String,
-  },
-  purchaseDate: {
-    type: Date,
-  },
-  taxPrice: {
-    type: Number,
-    default: 0.0,
-  },
-  shippingPrice: {
-    type: Number,
-    default: 0.0,
-  },
-  isDelivered: {
-    type: Boolean,
-    default: false,
-  },
-  deliveredAt: {
-    type: Date,
-  },
-})
+  {
+    timestamps: true,
+  }
+)
 
 const Order = model('Order', orderSchema)
 
