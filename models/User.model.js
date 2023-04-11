@@ -33,7 +33,7 @@ const userSchema = new Schema(
       town: String,
       addressA: String,
       addressB: String,
-      phoneNumber: String,
+      phoneNumber: Number,
     },
   },
   {
