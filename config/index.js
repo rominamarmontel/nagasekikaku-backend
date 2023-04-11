@@ -25,6 +25,7 @@ module.exports = (app) => {
   app.use(
     cors({
       origin: [FRONTEND_URL],
+      exposedHeaders: ['Access-Control-Allow-Origin'],
     })
   )
 
