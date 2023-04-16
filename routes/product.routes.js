@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const Product = require('../models/Product.model.js')
 const fileUpload = require('../config/cloudinary-config')
+const isAuthenticated = require('../middlewares/isAuthenticated.js')
 
 // @desc   Get all products
 // @route  GET /api/products
@@ -35,7 +36,8 @@ router.get('/:id', async (req, res, next) => {
 // @access isAdmin
 router.post(
   '/create',
-  /* IS ADMIN, */ fileUpload.single('image'),
+  isAuthenticated,
+  fileUpload.single('image'),
   async (req, res, next) => {
     try {
       const productToCreate = { ...req.body }
@@ -55,7 +57,8 @@ router.post(
 // @access isAdmin
 router.patch(
   '/:id',
-  /* IS ADMIN, */ fileUpload.single('image'),
+  isAuthenticated,
+  fileUpload.single('image'),
   async (req, res, next) => {
     try {
       const { id } = req.params
@@ -80,16 +83,13 @@ router.patch(
 // @desc   Delete one product
 // @route  patch /api/products/:id
 // @access isAdmin
-router.delete(
-  '/:id',
-  /* IS ADMIN, */ async (req, res, next) => {
-    try {
-      await Product.findByIdAndDelete(req.params.id)
-      res.sendStatus(204)
-    } catch (error) {
-      next(error)
-    }
+router.delete('/:id', isAuthenticated, async (req, res, next) => {
+  try {
+    await Product.findByIdAndDelete(req.params.id)
+    res.sendStatus(204)
+  } catch (error) {
+    next(error)
   }
-)
+})
 
 module.exports = router

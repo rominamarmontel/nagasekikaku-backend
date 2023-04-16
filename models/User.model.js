@@ -33,7 +33,10 @@ const userSchema = new Schema(
       town: String,
       addressA: String,
       addressB: String,
-      phoneNumber: Number,
+      phoneNumber: {
+        type: String,
+        match: '/^(()?d{3}())?(-|s)?d{3}(-|s)d{4}$/',
+      },
     },
   },
   {
