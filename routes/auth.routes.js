@@ -8,8 +8,6 @@ const User = require('./../models/User.model.js')
 
 router.post('/signup', async (req, res, next) => {
   const { username, email, password } = req.body
-  console.log('email:', email)
-  console.log('password:', password)
   if (!username || !email || !password) {
     return res
       .status(400)
@@ -37,8 +35,6 @@ router.post('/signup', async (req, res, next) => {
 })
 const crypto = require('crypto')
 const key = crypto.randomBytes(32) // 32バイトのランダムなバイト列を生成
-console.log(key.toString('base64'))
-
 router.post('/login', async (req, res, next) => {
   const { email, password } = req.body
   if (!email || !password) {
